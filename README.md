@@ -3,8 +3,11 @@ JS code OOJS
 Table of content
 -----------------
  -Phrase guessing game created based on OOJS coding
+ 
  -Input that corresponds to the given phrase   by keys that visually reflect validity of entry
+ 
  -Error or win message based on user's game outcome
+ 
  -Reset of the page in case of both outcomes
  -Randomly generated new phrase that user should guess
  -Keyup event listener for keyboard usage along with mouse usage for entry
