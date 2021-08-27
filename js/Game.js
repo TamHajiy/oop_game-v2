@@ -6,24 +6,38 @@ const overlay = document.getElementById('overlay');
 class Game {
     constructor(missed, phrases, activePhrase){
         this.missed = 0;
-        this.phrases = ['rising sun', 'family', 'weekend', 'cottage cheese', 'hot dog'];
+        this.phrases = [
+            new Phrase('rising sun'),
+            new Phrase('family'),
+            new Phrase('weekend'),
+            new Phrase('cottage cheese'),
+            new Phrase('hot dog')
+        ];
         this.activePhrase = null;
     }
-
+    /*
+     ** Set screen overlay to hidden and set 
+     *  Phrase property of activePhrase
+     */
     startGame(){
-        // hide the start screen overlay
         this.missed = 0;
         overlay.style.visibility ='hidden';
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
     }
-
+    
+    /*
+     ** Generate random phrase
+     */
     getRandomPhrase(){
         let randomIndex = Math.floor(Math.random() * this.phrases.length);
-        return new Phrase(this.phrases[randomIndex]);
+        return this.phrases[randomIndex];  // returns phrase object
     }
 
-    handleInteraction(btn){
+    /*
+     ** Check if the clicked button matches a letter in the phrase
+     */
+    handleInteraction(btn){        
         btn.disabled = true;
         let btn_letter = btn.textContent;
         if(!this.activePhrase.checkLetter(btn_letter)) {
@@ -32,12 +46,15 @@ class Game {
         } else {
             btn.className = 'chosen';
             this.activePhrase.showMatchedLetter(btn_letter);
-            if(this.checkForWin()===true) {
+            if(this.checkForWin()) {
                 this.gameOver(true);
             }
         }
     }
 
+    /*
+     ** Removes life from scoreboard by replacing image 
+     */
     removeLife(){
         const images = document.getElementsByTagName('img');
         console.log(images.length, this.missed)
@@ -49,11 +66,12 @@ class Game {
             this.missed = 0;
         }        
     }
-    // checkForWin(): this method checks to see if the player has revealed all 
-    // of the letters in the active phrase.
+    
+    /*
+     ** Checks if all selected letters are true
+     */
     checkForWin(){
         const hidden = document.querySelectorAll('ul li.hide');
-        console.log(hidden);
         if(hidden.length === 0){
             return true
         }else{
@@ -61,6 +79,9 @@ class Game {
         }
     }
 
+    /*
+     ** Set text and overlay for a given outcome 
+     */
     gameOver(win){
         const gameOvermessage = document.getElementById('game-over-message')
         if (win){
@@ -75,17 +96,21 @@ class Game {
         this.resetGame();
     }
 
+    /*
+     ** Reset screen by enabling keys, changing className and image
+     */
    resetGame(btn){
        //remove all li elements
        const phraseDiv = document.getElementById('phrase');
        phraseDiv.firstElementChild.innerHTML = " ";
 
        //enable keys and update class to key 
-       const allButtons = document.querySelectorAll('.chosen .wrong');
+       const allButtons = document.querySelectorAll('div.keyrow button');
        console.log(allButtons)
        allButtons.forEach(btn => {
            btn.disabled = false;
            btn.className = 'key';
+
        });
 
        //reset heart images
