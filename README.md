@@ -17,3 +17,4 @@ Table of content
  -Changes in CSS styling: .header:font-weight: bold; color:#332b10; --- .letter: height & width:80px; ---body:background-color:#88c5bb; .show:border-
   radius: 40px; width&height: 80px; font-size:25px; ---.chosen:border-radius: 40px; ---*:font-family:'Georgia', serif;
  
+  ![PhraseHunter-game play](PhraseHunter-video.mov)
