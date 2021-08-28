@@ -5,13 +5,14 @@
 /* 
 **  Set new instance of the Game()
 */
-let newGame = new Game();
+let newGame = null;
 
 /* 
 **  Set event listener to start a game
 */
 const startButton = document.getElementById('btn__reset');
 startButton.addEventListener('click', (e)=>{
+    newGame = new Game();
     newGame.startGame();
 })
 
@@ -30,11 +31,14 @@ letterButton.forEach(btn => {
 **  Set physical computer keyboard
 */
 document.addEventListener('keyup', (e)=>{
+    const overlay = document.getElementById('overlay');
     letterButton.forEach(btn => {
-        if (btn.innerHTML === e.key && !btn.disabled){
-            newGame.handleInteraction(btn);
-        }
+        if(overlay.style.visibility === 'hidden'){
+            if (btn.innerHTML === e.key && !btn.disabled){   
+                 newGame.handleInteraction(btn);
+            }
+        } // else do nothing
     });
-})
+});
 
 
